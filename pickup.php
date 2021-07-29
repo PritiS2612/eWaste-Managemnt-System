@@ -66,9 +66,6 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Schedule a Pickup</title>
-<meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>e-Waste Management System</title>
   <meta content="" name="description">
@@ -92,7 +89,13 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
- <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+  <!-- =======================================================
+  * Template Name: MeFamily - v2.2.1
+  * Template URL: https://bootstrapmade.com/family-multipurpose-html-bootstrap-template-free/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 
 <!--web-fonts-->
 <link href='//fonts.googleapis.com/css?family=Josefin+Sans:400,100,300,600,700' rel='stylesheet' type='text/css'>
@@ -120,78 +123,51 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
   color: #fff;
   text-decoration: none;
 }
-    .pick{
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #7FFFD4;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 5px #5F9EA0;
-  }
-  .pick:hover {
-    background-color: #adff2f;
-  }
-  .pick:active{
-    background-color: #adff2f;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }
-  </style>
-
+</style>
 
 </head>
 <body>
-      
 	<!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="index.php">e-Waste Management System</a></h1>
+      <h1 class="logo mr-auto"><a href="index.html">e-Waste Management System</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!--a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a-->
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="index.php">Home</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
           <li><a href="our-story.php">About e-Waste</a></li>
           <li><a href="service.php">Services</a></li>
-          <li><a href="Process.php">Process</a></li>
-          <li><a href="contact.php">Contact Us</a>
+          <li><a href="gallery.html">Process</a></li>
+          <li class="drop-down"><a href="contact.php">Contact Us</a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="drop-down"><a href="#">Deep Drop Down</a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
           </li>
           <li><a href="admin/index.php">Dashboard</a></li>
-          <li class="active"><a href="pickup.php" class="pick">Schedule a Pickup</a></li>
-        </ul>
-
 
         </ul>
       </nav><!-- .nav-menu -->
 
     </div>
   </header><!-- End Header -->
-<!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs" style="padding-top:50px";>
-      <div class="container">
-
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Schedule a Pickup</h2>
-          <ol>
-            <li><a href="index.php">Home</a></li>
-            <li>Schedule a Pickup</li>
-          </ol>
-        </div>
-
-      </div>
-    </section><!-- End Breadcrumbs -->
 
 		<!---header--->
 		<div class="header">
-      
 			<h1>Schedule a Pickup</h1>
 		</div>
 		<!---header--->
@@ -221,7 +197,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 				</div>
 				</div>
 			</div>
-			  <!-- ======= Footer ======= -->
+			 <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
       <h3>eWaste Management System</h3>
@@ -238,12 +214,14 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
-        Designed by <a href="#">Priti Singh</a>
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/family-multipurpose-html-bootstrap-template-free/ -->
+        Designed by <a href="https://bootstrapmade.com/">Priti Singh</a>
       </div>
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
 		<!---main--->
 </body>

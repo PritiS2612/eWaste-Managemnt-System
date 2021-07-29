@@ -1,247 +1,187 @@
+<?php
+ session_start();
+//Database Configuration File
+include('includes/config.php');
+error_reporting(0);
+if(isset($_POST['login']))
+  {
+ 
+    // Getting username and password
+    $uname=$_POST['username'];
+    $password=$_POST['password'];
+    // Fetch data from database on the basis of username/email and password
+    $sql ="SELECT UserName,Password FROM tbladmin WHERE (UserName=:usname)";
+    $query= $dbh -> prepare($sql);
+    $query-> bindParam(':usname', $uname, PDO::PARAM_STR);
+    $query-> execute();
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+foreach ($results as $row) {
+$hashpass=$row->Password;
+}
+//verifying Password
+if (password_verify($password, $hashpass)) {
+$_SESSION['userlogin']=$_POST['username'];
+    echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
+  } else {
+$wrongpassword="You entered wrong password.";
+ 
+  }
+}
+//if username or email not found in database
+else{
+$wrongemail="User not registered with us.";
+  }
+ 
+}
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html class="loading" lang="en" data-textdirection="ltr">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>e-Waste Management System</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Admin Login
+  </title>
 
-  <!-- Favicons -->
-  <link href="assets/img/ew.jpg" rel="icon">
-  <link href="assets/img/ew.jpg" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <style type="text/css">
-    .pick{
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #7FFFD4;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 5px #5F9EA0;
-  }
-  .pick:hover {
-    background-color: #adff2f;
-  }
-  .pick:active{
-    background-color: #adff2f;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }
-  </style>
-  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
+  rel="stylesheet">
+  <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css"
+  rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="app-assets/css/vendors.css">
+  <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/icheck/icheck.css">
+  <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/icheck/custom.css">
+  <link rel="stylesheet" type="text/css" href="app-assets/css/app.css">
+  <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-menu-modern.css">
+  <link rel="stylesheet" type="text/css" href="app-assets/css/core/colors/palette-gradient.css">
+  <link rel="stylesheet" type="text/css" href="app-assets/css/pages/login-register.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
-
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
-
-      <h1 class="logo mr-auto"><a href="index.php">e-Waste Management System</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!--a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a-->
-
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="index.php">Home</a></li>
-          <li><a href="our-story.php">About e-Waste</a></li>
-          <li><a href="service.php">Services</a></li>
-          <li><a href="Process.php">Process</a></li>
-          <li><a href="contact.php">Contact Us</a></li>
-          <li><a href="admin/index.php">Dashboard</a></li>
-<li><a href="pickup.php" class="pick">Schedule a Pickup</a></li>
+<body class="vertical-layout vertical-menu-modern 1-column  bg-cyan bg-lighten-2 menu-expanded fixed-navbar"
+data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
+  <!-- fixed-top-->
+  <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-dark navbar-shadow">
+    <div class="navbar-wrapper">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+          <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+          <li class="nav-item">
+            <a class="navbar-brand" href="index.html">
+            
+              <h3 class="brand-text"> Admin</h3>
+            </a>
+          </li>
+          <li class="nav-item d-md-none">
+            <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a>
+          </li>
         </ul>
-
-      </nav><!-- .nav-menu -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-
-      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-
-      <div class="carousel-inner" role="listbox">
-
-        <!-- Slide 1 -->
-        <div class="carousel-item active" style="background-image: url(images/ew3.jpg)">
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url(images/ew2.jpg)">
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url(images/ew1.jpg)">
-        </div>
-
       </div>
-
-      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon icofont-simple-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-
-      <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon icofont-simple-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-
-    </div>
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= My & Family Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>e-Waste</h2>
-          <p style="text-align: justify;  text-justify: inter-word;">Electronic waste or e-waste describes discarded electrical or electronic devices. Used electronics which are destined for refurbishment, reuse, resale, salvage recycling through material recovery, or disposal are also considered e-waste. Informal processing of e-waste in developing countries can lead to adverse human health effects and environmental pollution.</p>
-        </div>
-
-        <div class="row content">
-          <div class="col-lg-6">
-            <img src="images/ew4.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <p style="text-align: justify;  text-justify: inter-word;">
-              The Ministry of Environment, Forest and Climate Change notified the E-Waste Management Rules, 2016 on 23 March 2016 in supersession of the e-waste (Management & Handling) Rules, 2011.
-
-            </p>
-            <ul>
-              <li><i class="ri-check-double-line"></i> E-Waste (Management) Rules, 2016 - What’s New?</li>
-              <li><i class="ri-check-double-line"></i> Salient Features of the E-Waste (Management) Rules, 2016 and its likely implication</li>
-              <li><i class="ri-check-double-line"></i> Amendments in E-Waste Management Rules 2016</li>
-            </ul>
-            <p style="text-align: justify;  text-justify: inter-word;">
-              Electronic scrap components, such as CPUs, contain potentially harmful materials such as lead, cadmium, beryllium, or brominated flame retardants. Recycling and disposal of e-waste may involve significant risk to health of workers and their communities.
-            </p>
-            <a href="our-story.php" class="btn-learn-more">Learn More</a>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End My & Family Section -->
-
-    <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="icofont-computer"></i></div>
-            <h4 class="title"><a href="">Reduce</a></h4>
-            <p class="description"style="text-align: justify;  text-justify: inter-word;">Reducing - Try to reduce the amount of waste you produce, as this is the best way to help the environment! If you cannot avoid producing the waste, try…</p>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="icofont-earth"></i></div>
-            <h4 class="title"><a href="">Reuse</a></h4>
-            <p class="description"style="text-align: justify;  text-justify: inter-word;">Reusing - Think of ways you could reuse something, like shredding paper for your hamster rather than buying bedding or saving glass jars for storage. If you can not reuse something try…</p>
-          </div>
+      <div class="navbar-container">
+        <div class="collapse navbar-collapse justify-content-end" id="navbar-mobile">
+          <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-link mr-2 nav-link-label" href="../index.php"><i class="ficon ft-arrow-left"></i></a></li>
          
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="icofont-settings"></i></div>
-            <h4 class="title"><a href="">Recycle</a></h4>
-            <p class="description"style="text-align: justify;  text-justify: inter-word;">Recycling (and composting)
-This enables the materials you throw away to be used again by making them into new products.</p>
-          </div>
-          
-
+          </ul>
         </div>
-
-      </div>
-    </section><!-- End Features Section -->
-
-    <!-- ======= Recent Photos Section ======= -->
-    <section id="recent-photos" class="recent-photos">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Initiatives taken by Indian Government</h2>
-          <p style="text-align: justify;  text-justify: inter-word;"> The Ministry of Electronics and Information Technology has taken the initiative to create awareness on the ill effect of e-waste recycling in informal sector and suggesting the best practices on alternative safe methods for environment friendly disposal of e-waste through industry associations. The programme, implemented across various cities of 31 identified states/UTs, has created awareness among the public through workshops/activities and cinema.
-</p>
-        </div>
-
-        <div class="owl-carousel recent-photos-carousel">
-          <a href="assets/img/gallery/i1.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i1.jpg" alt=""></a>
-          <a href="assets/img/gallery/i2.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i2.jpg" alt=""></a>
-          <a href="assets/img/gallery/i3.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i3.jpg" alt=""></a>
-          <a href="assets/img/gallery/i4.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i4.jpg" alt=""></a>
-          <a href="assets/img/gallery/i5.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i5.jpg" alt=""></a>
-          <a href="assets/img/gallery/i6.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i6.jpg" alt=""></a>
-          <a href="assets/img/gallery/i7.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i7.jpg" alt=""></a>
-          <a href="assets/img/gallery/i8.jpg" class="venobox" data-gall="recent-photos-carousel"><img src="assets/img/gallery/i8.jpg" alt=""></a>
-        </div>
-
-      </div>
-    </section><!-- End Recent Photos Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <h3>eWaste Management System</h3>
-      <p>Go Green and Spread Greenary all over the Earth.</p>
-      <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
-      <div class="copyright">
-        &copy; Copyright <strong><span>eWaste Mangement System</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        Designed by <a href="#">Priti Singh</a>
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </nav>
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-header row">
+      </div>
+      <div class="content-body">
+        <section class="flexbox-container">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-md-4 col-10 box-shadow-2 p-0">
+              <div class="card border-grey border-lighten-3 m-0">
+                <div class="card-header border-0">
+                  <div class="card-title text-center">
+                  Admin Login
+                  </div>
+                  <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                    <span>Enter your details</span>
+                  </h6>
+                </div>
+                <div class="card-content">
+                  <div class="card-body">
+ <?php if($wrongpassword):?>                   
+<div class="alert bg-danger alert-icon-left alert-dismissible mb-2" role="alert">
+<span class="alert-icon"><i class="la la-thumbs-o-down"></i></span>
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+<strong>Oh snap ! </strong> <?php echo htmlentities($wrongpassword); ?>
+  </div>
+<?php endif;?>
 
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+ <?php if($wrongemail):?>                   
+<div class="alert bg-danger alert-icon-left alert-dismissible mb-2" role="alert">
+<span class="alert-icon"><i class="la la-thumbs-o-down"></i></span>
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+<strong>Oh snap ! </strong> <?php echo htmlentities($wrongemail); ?>
+  </div>
+<?php endif;?>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
 
+<form class="form-horizontal" method="post">
+                      
+
+<fieldset class="form-group position-relative has-icon-left">
+<input type="text" class="form-control input-lg" id="username" name="username" placeholder="Your Username" tabindex="1" required data-validation-required-message="Please enter your username.">
+<div class="form-control-position"><i class="ft-user"></i>
+</div>
+<div class="help-block font-small-3"></div>
+</fieldset>
+                      
+
+<fieldset class="form-group position-relative has-icon-left">
+<input type="password" class="form-control input-lg" id="password" name="password" placeholder="Enter Password" tabindex="2" required data-validation-required-message="Please enter valid passwords.">
+<div class="form-control-position"><i class="la la-key"></i></div>
+<div class="help-block font-small-3"></div>
+ </fieldset>
+                      
+
+
+                      
+
+<button type="submit" class="btn btn-danger btn-block btn-lg" name="login"><i class="ft-unlock"></i> Login</button>
+</form>
+                  
+</div>
+</div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+  <footer class="footer fixed-bottom footer-dark navbar-border navbar-shadow">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+      <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2021 <a class="text-bold-800 grey darken-2" href="#"
+        target="_blank"></a>e-Waste Management System, All rights reserved. </span>
+      <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i class="ft-heart pink"></i></span>
+    </p>
+  </footer>
+  <!-- BEGIN VENDOR JS-->
+  <script src="app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
+  <!-- BEGIN VENDOR JS-->
+  <!-- BEGIN PAGE VENDOR JS-->
+  <script src="app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"
+  type="text/javascript"></script>
+  <script src="app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
+  <!-- END PAGE VENDOR JS-->
+  <!-- BEGIN MODERN JS-->
+  <script src="app-assets/js/core/app-menu.js" type="text/javascript"></script>
+  <script src="app-assets/js/core/app.js" type="text/javascript"></script>
+  <script src="app-assets/js/scripts/customizer.js" type="text/javascript"></script>
+  <!-- END MODERN JS-->
+  <!-- BEGIN PAGE LEVEL JS-->
+  <script src="app-assets/js/scripts/forms/form-login-register.js" type="text/javascript"></script>
+  <!-- END PAGE LEVEL JS-->
 </body>
-
 </html>

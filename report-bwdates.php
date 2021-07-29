@@ -9,7 +9,7 @@ else:
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <head>
-  <title>Admin- All Schedules</title>
+  <title> Admin- Search Contact Details</title>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
   rel="stylesheet">
@@ -31,15 +31,15 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
   <div class="app-content content">
     <div class="content-wrapper">
       <div class="content-header row">
-        <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-          <h3 class="content-header-title mb-0 d-inline-block">All Schedules</h3>
+        <div class="content-header-left col-md-10 col-12 mb-2 breadcrumb-new">
+          <h3 class="content-header-title mb-0 d-inline-block">Contacts Report B/w Dates</h3>
           <div class="row breadcrumbs-top d-inline-block">
             <div class="breadcrumb-wrapper col-12">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
                 </li>
                 
-                <li class="breadcrumb-item active">All Schedules
+                <li class="breadcrumb-item active">Contacts Report B/w Dates
                 </li>
               </ol>
             </div>
@@ -64,9 +64,9 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                 </div>
               </div>
               <div class="card-content collapse show">
-                
+  <h4 align="center" style="font-weight: bold">Contact's Report from <?php echo htmlentities($_SESSION['frmdate']);?> to <?php echo htmlentities($_SESSION['todate']);?></h4>
                 <p class="px-1">
-                
+              
                 <div class="table-responsive">
                   <table class="table mb-0">
                     <thead>
@@ -81,9 +81,12 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
                     </thead>
                     <tbody>
 <?php 
-
-$sql ="SELECT FullName,PhoneNumber,PostingDate,id,Is_Read from tblpickupdata";
+$fdate=$_SESSION['frmdate'];
+$tdate=$_SESSION['todate'];
+$sql = "SELECT FullName,PhoneNumber,PostingDate,id,Is_Read from tblcontactdata where date(PostingDate) between :fd and :td";
 $query = $dbh -> prepare($sql);
+$query->bindParam(':fd',$fdate,PDO::PARAM_STR);
+$query->bindParam(':td',$tdate,PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -103,7 +106,7 @@ else:
 endif;
 ?></td>
 
-                  <td><a href="schedule_details.php?cid=<?php echo htmlentities($result->id);?>"><button type="button" class="btn btn-info btn-min-width btn-glow mr-1 mb-1">View Details</button></td>
+                  <td><a href="contact-details.php?cid=<?php echo htmlentities($result->id);?>"><button type="button" class="btn btn-info btn-min-width btn-glow mr-1 mb-1">View Details</button></td>
                       </tr>
                       <?php
                       $cnt++;
